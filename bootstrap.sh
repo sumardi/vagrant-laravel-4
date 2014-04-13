@@ -114,4 +114,13 @@ command -v supervisord >/dev/null 2>&1 || {
     sudo chkconfig --level 345 supervisord on
 }
 
+command -v npm >/dev/null 2>&1 || {
+  echo ">>> Installing NodeJS & NPM"
+
+  sudo yum install -y --verbose nodejs npm
+
+  npm install -g grunt-cli
+  npm install -g gulp
+}
+
 echo ">>> Done!"

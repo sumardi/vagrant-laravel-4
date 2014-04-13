@@ -34,6 +34,7 @@ After the provisioning has completed, you can access your project at http://192.
 * PHPUnit
 * Beanstalkd
 * Supervisord
+* NodeJS (with Grunt, Gulp)
 
 ## Default Credentials
 ### MySQL
