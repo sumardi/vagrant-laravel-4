@@ -95,27 +95,27 @@ fi
 echo ">>> Configured web services ... restarting httpd"
 sudo service httpd restart
 
-command -v supervisord >/dev/null 2>&1 || {
+# command -v supervisord >/dev/null 2>&1 || {
     echo ">>> Installing supervisor"
 
-    sudo yum install -y --verbose supervisor
+    sudo yum install -y --verbose python-pip.noarch
+    sudo pip install supervisor
     sudo mkdir /etc/supervisor.d/
     sudo touch /etc/supervisor.d/laravel-listener.conf
     sudo touch /etc/supervisord.conf
-    # sudo mkdir /var/log/supervisor/
-    # sudo touch /var/log/supervisor/supervisord.log
     sudo cp /vagrant/conf/supervisord/supervisord.conf /etc/supervisord.conf
     sudo cp /vagrant/conf/supervisord/laravel-listener.conf /etc/supervisor.d/laravel-listener.conf
 
-    # str=$'[include]\nfiles = /etc/supervisord.d/*.conf'
-    # sudo sh -c "echo '$str' >> /etc/supervisord.conf"
-    sudo supervisord -c /etc/supervisord.conf
-    # sudo supervisorctl reread
-
     # make sure supervisord restarts with the server
+    sudo cp -r /vagrant/conf/init.d/supervisord /etc/init.d/supervisord
+    sudo chmod a+x /etc/init.d/supervisord
     sudo chkconfig --add supervisord
     sudo chkconfig --level 345 supervisord on
-}
+# }
+
+sudo unlink /tmp/supervisor.sock
+sudo supervisord -c /etc/supervisord.conf
+sudo supervisorctl reload
 
 command -v npm >/dev/null 2>&1 || {
   echo ">>> Installing NodeJS & NPM"
