@@ -32,6 +32,7 @@ After the provisioning has completed, you can access your project at http://192.
 * PHP 5.4 (with mbstring, mysql, curl, gd, dom, mcrypt, imap, xdebug, pdo, pear)
 * Composer
 * PHPUnit
+* phpMyAdmin
 * Beanstalkd
 * Supervisord
 * NodeJS (with Grunt, Gulp)

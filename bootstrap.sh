@@ -33,8 +33,11 @@ echo ">>> Installing Apache, PHP 5.4 & MySQL ..."
 # Install all the other full stuff for web we need
 sudo yum install -y --verbose git-core php54w php54w-cli php54w-common httpd php54w-curl php54w-mbstring php54w-mysql php54w-gd php54w-dom php54w-mcrypt php54w-imap php54w-xdebug php54w-pdo php54w-pear
 sudo yum install -y --verbose mysql mysql-server
+sudo yum install -y --verbose phpmyadmin
 sudo chmod -R 755 /var/lib/mysql/
 sudo service mysqld restart
+sudo cp -f /vagrant/conf/httpd/phpMyAdmin.conf /etc/httpd/conf.d/phpMyAdmin.conf
+sudo cp -f /vagrant/conf/phpMyAdmin/config.inc.php /etc/phpMyAdmin/config.inc.php
 
 # make sure mysqld restarts with the server
 sudo chkconfig --add mysqld
