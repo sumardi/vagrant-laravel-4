@@ -33,7 +33,7 @@ After the provisioning has completed, you can access your project at http://192.
 * Composer
 * PHPUnit
 * phpMyAdmin
-* Beanstalkd
+* Beanstalkd (with Beanstalk Console)
 * Supervisord
 * NodeJS (with Grunt, Gulp)
 
@@ -49,6 +49,10 @@ After the provisioning has completed, you can access your project at http://192.
 
 ### Beanstalkd
 * Port : `11300`
+
+### Beanstalk Console
+
+* http://192.168.13.37/beanstalk_console
 
 ## Resources
 

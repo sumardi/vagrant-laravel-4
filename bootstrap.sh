@@ -66,12 +66,16 @@ sudo chkconfig --level 345 httpd on
 command -v beanstalkd >/dev/null 2>&1 || {
     echo ">>> Installing beanstalkd "
     sudo yum install -y --verbose beanstalkd
-    sudo service beanstalkd start
+
+    /usr/local/bin/composer create-project ptrofimov/beanstalk_console -s dev --keep-vcs /var/www/beanstalk_console
+    sudo cp /vagrant/conf/httpd/beanstalk_console.conf /etc/httpd/conf.d/beanstalk_console.conf
 
     # make sure beanstalkd restarts with the server
     sudo chkconfig --add beanstalkd
     sudo chkconfig --level 345 beanstalkd on
 }
+
+sudo service beanstalkd start
 
 # Composer
 command -v /usr/local/bin/composer >/dev/null 2>&1 || {
@@ -95,7 +99,7 @@ fi
 echo ">>> Configured web services ... restarting httpd"
 sudo service httpd restart
 
-# command -v supervisord >/dev/null 2>&1 || {
+command -v supervisord >/dev/null 2>&1 || {
     echo ">>> Installing supervisor"
 
     sudo yum install -y --verbose python-pip.noarch
@@ -111,7 +115,7 @@ sudo service httpd restart
     sudo chmod a+x /etc/init.d/supervisord
     sudo chkconfig --add supervisord
     sudo chkconfig --level 345 supervisord on
-# }
+}
 
 sudo unlink /tmp/supervisor.sock
 sudo supervisord -c /etc/supervisord.conf
